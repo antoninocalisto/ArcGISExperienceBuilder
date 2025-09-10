@@ -18,7 +18,8 @@ import {
 /* ===== Tipos ===== */
 type MsgFaixaInteresse = { type: 'faixa-interesse'; codigosPocos: (number | string)[] }
 type MsgLegendMinerais = { type: 'legend:minerais'; payload: any }
-type MsgConfig = { type: 'config'; startWithInterest?: boolean }
+type MsgConfig = { type: 'fetchDistribuicaoAmostras:ok'; startWithInterest?: boolean }
+type MsgConfigInterest = { type: 'config'; startWithInterest?: boolean; cgVisible?: boolean }
 
 type AmostraItem = {
   codigoPoco: number
@@ -75,43 +76,68 @@ function normalizeList(raw: any[]): AmostraItem[] {
 function fetchViaParent(body: string): Promise<AmostraItem[]> {
   console.groupCollapsed('[amostras] fetchViaParent')
   console.log('[amostras] body', body)
+
   return new Promise((resolve, reject) => {
     const reqId = Math.random().toString(36).slice(2)
+
     let targetOrigin = '*'
-    try { if (document.referrer) targetOrigin = new URL(document.referrer).origin } catch {}
-    console.log('[amostras] targetOrigin', targetOrigin, 'reqId', reqId)
+    try {
+      if (document.referrer) targetOrigin = new URL(document.referrer).origin
+    } catch {}
+
+    const OK = 'fetchDistribuicaoAmostras:ok'
+    const ERR = 'fetchDistribuicaoAmostras:err'
 
     const onMessage = (event: MessageEvent) => {
-      const d = (event as any).data || {}
+      const d: any = event?.data || {}
       if (!d || d.reqId !== reqId) return
-      console.log('[amostras] resposta', d.type, d)
 
-      // limpa timeout e listener
-      try { clearTimeout(to) } catch {}
-      window.removeEventListener('message', onMessage)
-      console.groupEnd()
+      console.log('[amostras] resposta do pai', {
+        receivedType: d.type,
+        expectedOk: OK,
+        expectedErr: ERR,
+        origin: event.origin,
+        sameOrigin: event.origin === window.location.origin,
+        reqId,
+      })
 
-      if (d.type === 'fetchDistribuicaoAmostras:ok') {
+      if (d.type === OK) {
+        try { clearTimeout(to) } catch {}
+        window.removeEventListener('message', onMessage)
+        const count = Array.isArray(d.payload) ? d.payload.length : null
+        console.log('[amostras] OK — normalizando payload', { count, sample: Array.isArray(d.payload) ? d.payload.slice(0, 3) : d.payload })
+        console.groupEnd()
         resolve(normalizeList(d.payload))
-      } else if (d.type === 'fetchDistribuicaoAmostras:err') {
+      } else if (d.type === ERR) {
+        try { clearTimeout(to) } catch {}
+        window.removeEventListener('message', onMessage)
+        console.warn('[amostras] ERRO do pai', d.message)
+        console.groupEnd()
         reject(new Error(d.message || 'Erro no fetch via parent'))
       } else {
-        reject(new Error('Resposta desconhecida do pai'))
+        // Mensagem com reqId certo mas type diferente — apenas ignore (pode ser outra pipeline)
+        console.warn('[amostras] ignorando mensagem com reqId válido porém type inesperado:', d.type)
       }
     }
+
     window.addEventListener('message', onMessage)
 
     const to = window.setTimeout(() => {
       window.removeEventListener('message', onMessage)
-      console.warn('[amostras] TIMEOUT aguardando resposta do pai', { reqId })
+      console.warn('[amostras] TIMEOUT aguardando resposta do pai', { reqId, expected: [OK, ERR] })
       console.groupEnd()
-      reject(new Error('Timeout aguardando resposta do pai'))
+      reject(new Error('Timeout aguardando resposta do pai (amostras)'))
     }, 20000)
 
-    // dispara para o PAI (Explora)
     window.parent?.postMessage({ type: 'fetchDistribuicaoAmostras', body, reqId }, targetOrigin)
+    console.log('[amostras] postMessage -> PAI', {
+      type: 'fetchDistribuicaoAmostras',
+      targetOrigin,
+      reqId
+    })
   })
 }
+
 async function fetchDistribuicaoAmostras(faixaInteresse = false): Promise<AmostraItem[]> {
   const body = buildSessionBody(faixaInteresse)
   return fetchViaParent(body)
@@ -317,6 +343,21 @@ function clearAmostras(view: __esri.View) {
     all.forEach((ly: any) => { const id = String(ly?.id ?? ''); if (id.startsWith('amostras_')) view.map.remove(ly) })
   } catch {}
 }
+function clearMinerais(view: __esri.View) {
+  try {
+    const all = (view.map as any).allLayers?.toArray?.() ?? view.map.layers?.toArray?.() ?? []
+    const toRemove: any[] = []
+    all.forEach((ly: any) => {
+      const id = String(ly?.id ?? '')
+      if (/^minerais_/i.test(id)) toRemove.push(ly)
+    })
+    toRemove.forEach(ly => view.map.remove(ly))
+    console.log('[widget] clearMinerais -> removidas', toRemove.map(l => l.id))
+  } catch (e) {
+    console.warn('[widget] clearMinerais falhou', e)
+  }
+}
+
 function clearLayerOfTipo(view: __esri.View, tipo: string) {
   try { const lyr = view.map.findLayerById(layerIdForSample(tipo)) as any; if (lyr) view.map.remove(lyr) } catch {}
 }
@@ -331,6 +372,7 @@ function disableClusterNumbers(lyr: any) {
     if (Array.isArray((lyr as any).sublayers)) (lyr as any).sublayers.forEach((sl: any) => disableClusterNumbers(sl))
   } catch {}
 }
+
 
 /* ===== Componente ===== */
 export default function Widget(props: any) {
@@ -382,39 +424,159 @@ export default function Widget(props: any) {
   }, [])
 
   /* Recebe mensagens do PAI (faixa-interesse, legend:minerais, config) */
-  React.useEffect(() => {
-    const onMsg = (ev: MessageEvent) => {
-      const data = ev?.data as any
-      if (!data || !data.type) return
+  // Mensagens vindas do PAI (Explora): faixa-interesse, config, legend:minerais
+React.useEffect(() => {
+  console.log('[widget][msg] listener ON — aguardando mensagens do pai…', {
+    selfOrigin: window.location.origin,
+    referrer: document.referrer || '(sem referrer)'
+  })
 
-      if (data.type === 'faixa-interesse' && Array.isArray((data as MsgFaixaInteresse).codigosPocos)) {
-        const nums = (data as MsgFaixaInteresse).codigosPocos.map((v) => Number(v)).filter((v) => !isNaN(v))
-        console.log('[widget] faixa-interesse recebida', nums.length, nums.slice(0, 10))
-        setFaixaSet(new Set<number>(nums))
-        if (nums.length > 0) {
-          setshowWithInterest(true)
-          if (!interestManualRef.current) setWithInterest(true)
+  const onMsg = (ev: MessageEvent) => {
+    const data = ev?.data as any
+    if (!data || !data.type) return
+
+    console.groupCollapsed(`[widget][msg] recebido type="${data.type}"`)
+    console.log('origin:', ev.origin, 'source===parent?', ev.source === window.parent)
+    console.log('payload bruto:', data)
+
+    if (data.type === 'faixa-interesse' && Array.isArray((data as MsgFaixaInteresse).codigosPocos)) {
+      const nums = (data as MsgFaixaInteresse).codigosPocos
+        .map((v) => Number(v))
+        .filter((v) => !isNaN(v))
+      console.log('[widget][msg] faixa-interesse => normalizados:', {
+        recebidos: (data as MsgFaixaInteresse).codigosPocos.length,
+        validos: nums.length,
+        preview: nums.slice(0, 10)
+      })
+
+      // estado atual antes de decidir
+      console.log('[widget][msg] estado ANTES (faixa-interesse):', {
+        showWithInterest,
+        withInterest,
+        interestManual: interestManualRef.current
+      })
+
+      // aplica o Set de códigos
+      setFaixaSet(new Set<number>(nums))
+
+      // só exibimos/checamos se o pai quer que apareça (respeito é tratado no outro useEffect);
+      // aqui apenas "propomos" exibir caso venha faixa com elementos
+      if (nums.length > 0) {
+        console.log('[widget][msg] haverá tentativa de exibir/checar o intervalo (dependendo do outro efeito e do manualRef)')
+        setshowWithInterest(true)
+        if (!interestManualRef.current) {
+          console.log('[widget][msg] marcando withInterest automaticamente (usuário ainda não alterou manualmente)')
+          setWithInterest(true)
+        } else {
+          console.log('[widget][msg] NÃO marcamos withInterest (usuário já mexeu manualmente)')
         }
+      } else {
+        console.log('[widget][msg] lista da faixa está vazia — não alteramos withInterest')
       }
 
-      if (data.type === 'config') {
-        const cfg = data as MsgConfig
-        if (cfg.startWithInterest) {
-          setshowWithInterest(true)
-          if (!interestManualRef.current) setWithInterest(true)
-        }
-        console.log('[widget] config recebida', cfg)
-      }
-
-      // Opcional: se futuramente quiser renderizar legenda vinda do pai
-      if (data.type === 'legend:minerais') {
-        const _msg = data as MsgLegendMinerais
-        console.log('[widget] legend:minerais recebida', _msg?.payload)
-      }
+      // loga o estado “logo após” o ciclo atual de render (melhor visibilidade)
+      setTimeout(() => {
+        console.log('[widget][msg] estado APÓS setState (faixa-interesse):', {
+          showWithInterest,
+          withInterest,
+          interestManual: interestManualRef.current
+        })
+      }, 0)
+      console.groupEnd()
+      return
     }
-    window.addEventListener('message', onMsg)
-    return () => window.removeEventListener('message', onMsg)
-  }, [])
+
+    if (data.type === 'fetchDistribuicaoAmostras:ok') {
+      const cfg = data as MsgConfig
+      console.log('[widget][msg] fetchDistribuicaoAmostras:ok recebida:', cfg)
+
+      //Ajustando intervalo de interesse para aparecer
+      setWithInterest(cfg['message']['visible'])
+      setshowWithInterest((cfg['message']['visible']))
+
+      console.log('[widget][msg] estado ANTES (fetchDistribuicaoAmostras:ok):', {
+        showWithInterest,
+        withInterest,
+        interestManual: interestManualRef.current
+      })
+
+      if (cfg.startWithInterest) {
+        console.log('[widget][msg] pai sinalizou startWithInterest=TRUE -> mostrar checkbox')
+        setshowWithInterest(true)
+        if (!interestManualRef.current) {
+          console.log('[widget][msg] marcando withInterest porque usuário não mexeu manualmente')
+          setWithInterest(true)
+        } else {
+          console.log('[widget][msg] NÃO marcamos withInterest (respeitando escolha manual prévia)')
+        }
+      } else {
+        console.log('[widget][msg] startWithInterest ausente/falso — não forçamos nada aqui')
+      }
+
+      setTimeout(() => {
+        console.log('[widget][msg] estado APÓS setState (fetchDistribuicaoAmostras:ok):', {
+          showWithInterest,
+          withInterest,
+          interestManual: interestManualRef.current
+        })
+      }, 0)
+      console.groupEnd()
+      return
+    }
+
+    if (data.type === 'legend:minerais' || data.type === 'fetchDistribuicaoMinerais:ok') {
+      const _msg = data as MsgLegendMinerais
+      console.log('[widget][msg] legend:minerais payload:', _msg?.payload)
+      console.groupEnd()
+      return
+    }
+
+    console.log("TESTE: ", data)
+
+    if (data.type === 'config' || data.type === 'fetchDistribuicaoMinerais:ok') {
+      const cfg = data as MsgConfig
+      console.log('[widget][msg] config recebida:', cfg)
+      console.log('[widget][msg] **cgVisible do pai** =', cfg.cgVisible) // <<< imprime o 'visible'
+
+      // Mostrar/ocultar o checkbox de Intervalo de Interesse de acordo com a visibilidade no pai
+      if (cfg.cgVisible === true) {
+        setshowWithInterest(true)
+        // Se pai também pediu para começar marcado e o usuário ainda não mexeu:
+        if (cfg.startWithInterest && !interestManualRef.current) {
+          setWithInterest(true)
+        }
+      } else {
+        // Não mostrar (nem marcado) quando o checkbox não é visível no pai
+        setshowWithInterest(false)
+        if (!interestManualRef.current) setWithInterest(false)
+      }
+
+      // só pra depuração do resultado final neste tick:
+      setTimeout(() => {
+        console.log('[widget][msg] estado pós-config:', {
+          showWithInterest,
+          withInterest,
+          interestManual: interestManualRef.current
+        })
+      }, 0)
+
+      console.groupEnd()
+      return
+    }
+
+
+    console.log('[widget][msg] tipo não tratado:', data.type)
+    console.groupEnd()
+  }
+
+  window.addEventListener('message', onMsg)
+  return () => {
+    window.removeEventListener('message', onMsg)
+    console.log('[widget][msg] listener OFF — removido na desmontagem do efeito')
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+
 
   React.useEffect(() => {
     if (faixaSet.size > 0) {
@@ -632,7 +794,10 @@ export default function Widget(props: any) {
   }, [])
   const handleClose = React.useCallback(() => {
     const view = jimuMapView?.view
-    if (view) clearAmostras(view)
+    if (view) {
+    clearAmostras(view)
+    clearMinerais(view) // <<< também remove as camadas de minerais
+  }
     resetUiState()
   }, [jimuMapView, resetUiState])
 
