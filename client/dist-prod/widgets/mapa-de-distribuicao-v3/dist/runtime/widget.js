@@ -1,0 +1,98 @@
+System.register(["jimu-core","jimu-arcgis","esri/layers/FeatureLayer","esri/widgets/Legend","esri/renderers/ClassBreaksRenderer","esri/symbols/SimpleMarkerSymbol"],(function(e,t){var o={},r={},i={},a={},s={},n={};return{setters:[function(e){o.Global=e.Global,o.React=e.React,o.css=e.css,o.jsx=e.jsx},function(e){r.JimuMapViewComponent=e.JimuMapViewComponent},function(e){i.default=e.default},function(e){a.default=e.default},function(e){s.default=e.default},function(e){n.default=e.default}],execute:function(){e((()=>{var e={633:e=>{"use strict";e.exports=i},841:e=>{"use strict";e.exports=s},417:e=>{"use strict";e.exports=n},828:e=>{"use strict";e.exports=a},686:e=>{"use strict";e.exports=r},244:e=>{"use strict";e.exports=o}},t={};function l(o){var r=t[o];if(void 0!==r)return r.exports;var i=t[o]={exports:{}};return e[o](i,i.exports,l),i.exports}l.d=(e,t)=>{for(var o in t)l.o(t,o)&&!l.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:t[o]})},l.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),l.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.p="";var c={};return l.p=window.jimuConfig.baseUrl,(()=>{"use strict";l.r(c),l.d(c,{__set_webpack_public_path__:()=>B,default:()=>T});var e=l(244),t=l(686),o=l(633),r=l(828),i=l(841),a=l(417),s=function(e,t,o,r){return new(o||(o=Promise))((function(i,a){function s(e){try{l(r.next(e))}catch(e){a(e)}}function n(e){try{l(r.throw(e))}catch(e){a(e)}}function l(e){var t;e.done?i(e.value):(t=e.value,t instanceof o?t:new o((function(e){e(t)}))).then(s,n)}l((r=r.apply(e,t||[])).next())}))};const n={lateral:"rgba(88, 19, 252, 0.7)",testemunho:"rgba(255, 0, 255, 0.7)",calha:"rgba(245, 201, 38, 0.7)",plug:"rgba(125, 253, 148, 0.7)","whole core":"rgba(255, 43, 24, 0.7)"};var u=function(e,t,o,r){return new(o||(o=Promise))((function(i,a){function s(e){try{l(r.next(e))}catch(e){a(e)}}function n(e){try{l(r.throw(e))}catch(e){a(e)}}function l(e){var t;e.done?i(e.value):(t=e.value,t instanceof o?t:new o((function(e){e(t)}))).then(s,n)}l((r=r.apply(e,t||[])).next())}))};const d=!1,p=360,m=50,f=10,g=650,h={lateral:"totalAmostrasLaterais",testemunho:"totalTestemunhos",calha:"totalCalhas",plug:"totalPlugs","whole core":"totalWholeCore"},v=Object.keys(h),b=e=>Math.log10?Math.log10(e):Math.log(e)/Math.LN10;function x(e){return new Promise(((t,o)=>{const r=Math.random().toString(36).slice(2);let i="*";try{document.referrer&&(i=new URL(document.referrer).origin)}catch(e){}const a=e=>{const i=e.data||{};var s;i.reqId===r&&("fetchDistribuicaoAmostras:ok"===i.type?(window.removeEventListener("message",a),t((s=i.payload,(Array.isArray(s)?s:[]).map((e=>{var t,o,r,i,a,s,n,l,c,u,d,p,m,f;return{codigoPoco:Number(null!==(i=null!==(r=null!==(o=null!==(t=e.codigoPoco)&&void 0!==t?t:e.POCO_CD_POCO)&&void 0!==o?o:e.poco)&&void 0!==r?r:e.codigo)&&void 0!==i?i:0),totalAmostrasLaterais:Number(null!==(s=null!==(a=e.totalAmostrasLaterais)&&void 0!==a?a:e.laterais)&&void 0!==s?s:0),totalCalhas:Number(null!==(l=null!==(n=e.totalCalhas)&&void 0!==n?n:e.calhas)&&void 0!==l?l:0),totalPlugs:Number(null!==(u=null!==(c=e.totalPlugs)&&void 0!==c?c:e.plugs)&&void 0!==u?u:0),totalTestemunhos:Number(null!==(p=null!==(d=e.totalTestemunhos)&&void 0!==d?d:e.testemunhos)&&void 0!==p?p:0),totalWholeCore:Number(null!==(f=null!==(m=e.totalWholeCore)&&void 0!==m?m:e.wholeCore)&&void 0!==f?f:0)}})).filter((e=>!!e.codigoPoco))))):"fetchDistribuicaoAmostras:err"===i.type&&(window.removeEventListener("message",a),o(new Error(i.message||"Erro no fetch via parent"))))};window.addEventListener("message",a),window.parent.postMessage({type:"fetchDistribuicaoAmostras",body:e,reqId:r},i)}))}function y(){return u(this,arguments,void 0,(function*(e=!1){const t=function(e){const t=new URLSearchParams;return t.set("hdSys","novaintcons"),t.set("hdUC","Mapa"),t.set("hdAcao","CarregarMapaDistribuicaoAmostrasContador"),t.set("hdSessionFilter","true"),t.set("faixaInteresse",String(!!e)),t.toString()}(e);return x(t)}))}const w=e.css`
+  div[role='dialog'][aria-label='mapa-de-distribuicao'],
+  div[role='dialog'][aria-label='mapa-de-distribuicao-v2'] {
+    position: absolute !important;
+    inset: ${m}px ${f}px auto auto !important;
+    transform: none !important;
+    z-index: 9999 !important;
+    width: ${p}px !important;
+    height: ${g}px !important;
+    max-height: calc(100% - 24px) !important;
+    overflow: visible !important;   /* <<< sem scroll no painel */
+  }
+`,P=e.css`font-weight:600;margin:4px 0;font-size:.85rem;line-height:1.1;`,j=e.css`width:${40}px;height:${40}px;display:flex;align-items:center;justify-content:center;margin-right:8px;`,C=e.css`position:relative;width:100%;height:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.1);padding:16px;overflow:hidden;`,E=e.css`font-weight:600;margin-bottom:4px;display:block;`,R=e.css`width:100%;padding:6px 8px;margin-bottom:12px;border:1px solid #ccc;border-radius:4px;`,S=e.css`
+  /* nada de scroll aqui */
+  overflow: visible;                /* <<< sem scroll */
+  margin-bottom: 8px;               /* ↓ */
+  padding: 4px;                     /* ↓ */
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 4px;
+
+  display: grid;
+
+  /* DUAS LINHAS FIXAS */
+  grid-template-rows: repeat(2, minmax(24px, auto));
+
+  /* Preenche por colunas (1ª linha, 2ª linha, depois nova coluna) */
+  grid-auto-flow: column;
+
+  /* Colunas estreitas para caber mais conjuntos */
+  grid-auto-columns: minmax(105px, 1fr); /* ajuste fino: 100–120px */
+
+  /* Espaços MÍNIMOS entre conjuntos */
+  column-gap: 4px;  /* <<< menor espaço horizontal entre conjuntos */
+  row-gap: 2px;     /* <<< menor espaço vertical entre as 2 linhas */
+
+  align-items: start;
+`,A=e.css`
+  display: inline-grid;
+  grid-template-columns: auto 1fr;  /* checkbox | texto */
+  align-items: center;
+
+  column-gap: 1px;
+  padding: 1px 1px;                 /* ↑ adiciona 1px de altura útil */
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  & > * { margin: 0 !important; padding: 0 !important; }
+
+  input[type='checkbox'] {
+    width: 14px; height: 14px;
+    margin: 0 !important;
+    flex: 0 0 auto;
+  }
+
+  .lbl {
+    min-width: 0;
+    overflow: hidden;               /* só horizontal (não corta vertical) */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .84rem;
+    line-height: 1.15;              /* ↑ evita cortar “perna” do G */
+    padding-bottom: 1px;            /* ↑ micro-respiro extra */
+  }
+`,M=(e.css`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`,e.css`max-height:300px;overflow-y:auto;margin-top:8px;padding:8px 8px 36px;background:#fff;border:1px solid #ddd;border-radius:4px;position:relative;`),k=e.css`display:flex;align-items:center;margin:2px;`,I=e.css`font-size:.78rem;line-height:1.1;`,L=e.css`
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+`,$=e.css`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: .5em;
+  cursor: pointer;
+  font-size: .9rem;
+`,z=e.css`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: .5em;
+  cursor: pointer;
+  font-size: .9rem;
+`;function O(e){let t=e;for(;t;){if(t.getAttribute&&"dialog"===t.getAttribute("role"))return t;t=t.parentElement}return null}function _(e){const t=getComputedStyle(e);return"true"===e.getAttribute("aria-hidden")||"none"===t.display||"hidden"===t.visibility}let N=!1;function V(e){if(!N){N=!0;try{const t=e.style;"absolute"!==t.getPropertyValue("position")&&t.setProperty("position","absolute","important"),t.removeProperty("left"),t.removeProperty("bottom"),t.removeProperty("transform"),t.setProperty("inset","auto auto auto auto"),t.setProperty("top",`${m}px`,"important"),t.setProperty("right",`${f}px`,"important"),t.getPropertyValue("width")!==`${p}px`&&t.setProperty("width",`${p}px`,"important"),t.getPropertyValue("height")!==`${g}px`&&t.setProperty("height",`${g}px`,"important"),"calc(100% - 24px)"!==t.getPropertyValue("max-height")&&t.setProperty("max-height","calc(100% - 24px)","important"),"visible"!==t.getPropertyValue("overflow")&&t.setProperty("overflow","visible","important"),"9999"!==t.getPropertyValue("z-index")&&t.setProperty("z-index","9999","important")}finally{N=!1}}}const F=e=>`amostras_${e.replace(/\s+/g,"_")}`;function D(e){try{if(!e)return;e.featureReduction&&"cluster"===e.featureReduction.type&&(e.featureReduction=Object.assign(Object.assign({},e.featureReduction),{labelsVisible:!1})),"labelsVisible"in e&&(e.labelsVisible=!1),"labelingInfo"in e&&(e.labelingInfo=[]),Array.isArray(e.sublayers)&&e.sublayers.forEach((e=>D(e)))}catch(e){}}function T(l){var c;const[p,g]=e.React.useState(),[x,T]=e.React.useState(""),[B,W]=e.React.useState([]),[q,G]=e.React.useState(!1),[U,J]=e.React.useState(!1),[X,H]=e.React.useState(!1),[Q,K]=e.React.useState((()=>new Set((Array.isArray(null==l?void 0:l.codigosFaixaInteresse)?l.codigosFaixaInteresse:[]).map((e=>Number(e))).filter((e=>!isNaN(e)))))),[Y,Z]=e.React.useState(null),[ee,te]=e.React.useState(null),[oe,re]=e.React.useState(!1),[ie,ae]=e.React.useState(!1),[se,ne]=e.React.useState(""),[le,ce]=e.React.useState(""),ue=e.React.useRef(null);!function(t){e.React.useEffect((()=>{let e=null;const o=()=>{const o=t.current&&t.current.closest('[role="dialog"]')||document.querySelector('div[role="dialog"][aria-label="mapa-de-distribuicao-v2"]')||document.querySelector('div[role="dialog"][aria-label="mapa-de-distribuicao"]');if(!o)return;V(o);const r=new MutationObserver((e=>{if(!N&&e.some((e=>"style"===e.attributeName))){const e=o.style;("absolute"!==e.getPropertyValue("position")||e.getPropertyValue("top")!==`${m}px`||e.getPropertyValue("right")!==`${f}px`||e.transform&&"none"!==e.transform)&&V(o)}}));let i;r.observe(o,{attributes:!0,attributeFilter:["style"]});const a=()=>{clearTimeout(i),i=setTimeout((()=>V(o)),80)};window.addEventListener("resize",a),e=()=>{r.disconnect(),window.removeEventListener("resize",a)}};return requestAnimationFrame(o),setTimeout(o,80),setTimeout(o,300),()=>{null==e||e()}}),[t])}(ue);const de=e.React.useRef(!1);e.React.useEffect((()=>{const e=e=>{const t=null==e?void 0:e.data;if("fetchDistribuicaoAmostras:ok"===t.type){const e=t.toString();/\[Explora\]\[CG\]/i.test(e),/checkbox\s+existe\?\s*true/i.test(e),/vis.*vel\?\s*true/i.test(e);t.startWithInterest&&(H(!0),de.current||J(!0))}t&&"object"==typeof t&&"explora-cg-visibility"===t.type&&!0===t.exists&&!0===t.visible&&(H(!0),de.current||J(!0))};return window.addEventListener("message",e),()=>window.removeEventListener("message",e)}),[]),e.React.useEffect((()=>{const e=e=>{var t;const o=(null==e?void 0:e.data)||{};if("config"===(null==o?void 0:o.type)&&("startWithInterest"in o||"concatGeologica"in o)){const e=!!(null!==(t=o.startWithInterest)&&void 0!==t?t:o.concatGeologica);H(e),e&&!de.current&&J(!0)}};return window.addEventListener("message",e),()=>window.removeEventListener("message",e)}),[]),e.React.useEffect((()=>{const e=e=>{const t=null==e?void 0:e.data;if(!t||"faixa-interesse"!==t.type||!Array.isArray(t.codigosPocos))return;const o=t.codigosPocos.map((e=>Number(e))).filter((e=>!isNaN(e)));K(new Set(o)),o.length>0&&(H(!0),de.current||J(!0))};return window.addEventListener("message",e),()=>window.removeEventListener("message",e)}),[]),e.React.useEffect((()=>{Q.size>0&&(H(!0),de.current||J(!0))}),[Q]),e.React.useEffect((()=>{let e=!1;return function(){u(this,void 0,void 0,(function*(){if("sample"===x){re(!0),ne("");try{const t=yield y(U||d);e||Z(t)}catch(t){e||(ne((null==t?void 0:t.message)||"Falha ao buscar dados"),Z([]))}finally{e||re(!1)}}}))}(),()=>{e=!0}}),[x,U]),e.React.useEffect((()=>{let e=!1;return function(){u(this,void 0,void 0,(function*(){if("sample"===x&&U&&!(Q.size>0)&&null===ee){ae(!0),ce("");try{const t=yield y(!0);e||te(t)}catch(t){e||(ce((null==t?void 0:t.message)||"Falha ao buscar dados do intervalo de interesse"),te([]))}finally{e||ae(!1)}}}))}(),()=>{e=!0}}),[x,U,Q,ee]),e.React.useEffect((()=>{var e;const t=p;if(!(null==t?void 0:t.view))return;const l=U?Q.size>0?(null!=Y?Y:[]).filter((e=>Q.has(Number(e.codigoPoco)))):null!==(e=null!=ee?ee:Y)&&void 0!==e?e:[]:null!=Y?Y:[];if(!Array.isArray(l)||0===l.length)return;if(!Array.isArray(B)||0===B.length)return;const{view:c}=t;B.forEach((e=>{const u=l.map((t=>{var o;return{codigoPoco:t.codigoPoco,total:null!==(o=t[h[e]])&&void 0!==o?o:0}})).filter((e=>{var t;return(null!==(t=e.total)&&void 0!==t?t:0)>0}));if(function(e,t){try{const o=e.map.findLayerById(F(t));o&&e.map.remove(o)}catch(e){}}(c,e),0===u.length)return;const d=n[e]||"rgba(0,0,0,0.5)",p=F(e),m=`lgd_${p}`;try{!function(e){s(this,arguments,void 0,(function*({jimuMapView:e,dados:t,colorFill:s,idCamada:n,idLegenda:l,titleLegenda:c}){const u=e.view,d=u.map,p=`POCO_CD_POCO IN (${t.map((e=>e.codigoPoco)).join(",")})`,m=new o.default({url:"https://basegis.petrobras.com.br/arcgis/rest/services/EXPLORA/Feature_Pocos/MapServer/0",definitionExpression:p,title:"Po\xe7os",outFields:["*"],visible:!1});yield m.load();const f=(yield m.queryFeatures({where:p,outFields:["*"],returnGeometry:!0})).features.map((e=>{const o=t.find((t=>t.codigoPoco===e.attributes.POCO_CD_POCO));return e.attributes.POCO_MD_MERID_CENT=o?o.total:0,e})),g=t.map((e=>e.total));let h=Math.min(...g),v=Math.max(...g);const b=[],x={color:"black",width:"1px"};if(h===v&&0===h)b.push({minValue:0,maxValue:0,label:"N\xe3o h\xe1 dados suficientes",symbol:new a.default({color:"rgba(255,255,255,0)",size:0,style:"circle",outline:x})});else{const e=g.filter((e=>0===e)).length,t=g.filter((e=>e>0));e>0&&b.push({minValue:0,maxValue:0,label:`| 0 | (${e} po\xe7o${e>1?"s":""})`,symbol:new a.default({color:"rgba(200,200,200,0.3)",size:6,style:"circle",outline:x})}),h=1;const o=t.length,r=Math.max(2,Math.round(1+3.3*Math.log10(o))),i=Math.ceil((v-h+1)/r),n=40;for(let e=0;e<r;e++){const o=h+e*i,l=h+(e+1)*i-1;if(o>v)break;const c=t.filter((e=>e>=o&&e<=l)).length,u=`${o} |---| ${l} (${c} po\xe7o${c>1?"s":""})`,d=6+e*(n/r);b.push({minValue:o,maxValue:l,label:u,symbol:new a.default({color:s,size:d,style:"circle",outline:x})})}}const y=new i.default({field:"POCO_MD_MERID_CENT",classBreakInfos:b}),w=new o.default({id:n,source:f,fields:m.fields,objectIdField:"OBJECTID",geometryType:"point",spatialReference:{wkid:102100},renderer:y,title:c,listMode:"hide"}),P=d.findLayerById(n);P&&d.remove(P),d.add(w),new r.default({view:u,layerInfos:[{layer:w,title:c}]})}))}({jimuMapView:t,dados:u,colorFill:d,idCamada:p,idLegenda:m,titleLegenda:(U?"Intervalo de Interesse - ":"")+(e.charAt(0).toUpperCase()+e.slice(1)),withInterest:U});const n=c.map.findLayerById(p);n&&D(n)}catch(e){console.error(`[amostras] falha ao gerar camada ${p}`,e)}}))}),[p,B,U,Q,Y,ee]);const pe=e.React.useCallback((()=>{W([]),G(!1),J(!1),T(""),Z(null),te(null),de.current=!1}),[]),me=e.React.useCallback((()=>{const e=null==p?void 0:p.view;e&&function(e){var t,o,r,i,a,s;try{(null!==(s=null!==(r=null===(o=null===(t=e.map.allLayers)||void 0===t?void 0:t.toArray)||void 0===o?void 0:o.call(t))&&void 0!==r?r:null===(a=null===(i=e.map.layers)||void 0===i?void 0:i.toArray)||void 0===a?void 0:a.call(i))&&void 0!==s?s:[]).forEach((t=>{var o;String(null!==(o=null==t?void 0:t.id)&&void 0!==o?o:"").startsWith("amostras_")&&e.map.remove(t)}))}catch(e){}}(e),pe()}),[p,pe]);e.React.useEffect((()=>{if(!(null==p?void 0:p.view))return;const e=ue.current;if(!e)return;const t=O(e);if(!t)return;const o=t.querySelector('button[aria-label="Close"], button[title="Close"], button[aria-label="Fechar"], button[title="Fechar"], [data-action="close"]');return o?(o.addEventListener("click",me),()=>o.removeEventListener("click",me)):void 0}),[p,me]),e.React.useEffect((()=>{const e=ue.current;if(!e)return;const t=O(e);if(!t)return;let o=!_(t);const r=()=>{const e=_(t);o&&e?(me(),o=!1):o||e||(o=!0)},i=new MutationObserver(r);return i.observe(t,{attributes:!0,attributeFilter:["style","class","aria-hidden"]}),r(),()=>i.disconnect()}),[me]),e.React.useEffect((()=>{const e=e=>{"Escape"===e.key&&me()};return document.addEventListener("keydown",e),()=>document.removeEventListener("keydown",e)}),[me]);const fe=e.React.useMemo((()=>{var e;const t=U?Q.size>0?(null!=Y?Y:[]).filter((e=>Q.has(Number(e.codigoPoco)))):null!==(e=null!=ee?ee:Y)&&void 0!==e?e:[]:null!=Y?Y:[];return B.map((e=>{const o=n[e],r=t.map((t=>{var o;return{codigoPoco:t.codigoPoco,total:null!==(o=t[h[e]])&&void 0!==o?o:0}}));let i=function(e,t){const o=e.map((e=>e.total));let r=Math.min(...o),i=Math.max(...o);const a=[];if(!isFinite(r)||!isFinite(i))return a;if(0===r&&0===i)a.push({label:"N\xe3o h\xe1 dados suficientes",size:0,cor:t,count:0});else{const e=o.filter((e=>0===e)).length,s=o.filter((e=>e>0));e>0&&a.push({label:`| 0 | (${e} po\xe7o${e>1?"s":""})`,size:6,cor:"rgba(200,200,200,0.3)",count:e}),r=1;const n=s.length,l=Math.max(2,Math.round(1+3.3*b(n||1))),c=Math.ceil((i-r+1)/l),u=30;for(let e=0;e<l;e++){const o=r+e*c,n=r+(e+1)*c-1;if(o>i)break;const d=s.filter((e=>e>=o&&e<=n)).length,p=`${o} |---| ${n} (${d} po\xe7o${d>1?"s":""})`,m=6+e*(u/l);a.push({label:p,size:m,cor:t,count:d})}}return a}(r,o).reverse();return q||(i=i.filter((e=>e.count>0||e.label.startsWith("| 0 |")))),{tipo:e,rows:i}}))}),[B,q,U,Q,Y,ee]),ge=Array.isArray(Y)&&Y.length>0||Array.isArray(ee)&&ee.length>0;return(0,e.jsx)("div",{css:C,ref:ue},(0,e.jsx)(e.Global,{styles:w}),(0,e.jsx)("label",{css:E},"Selecione a distribui\xe7\xe3o"),(0,e.jsx)("select",{css:R,value:x,onChange:e=>T(e.target.value)},(0,e.jsx)("option",{value:""},"Selecione o tipo"),(0,e.jsx)("option",{value:"sample"},"Distribui\xe7\xe3o de amostra")),"sample"===x&&(0,e.jsx)(e.React.Fragment,null,oe&&(0,e.jsx)("div",{style:{marginBottom:8}},"Carregando base\u2026"),!!se&&(0,e.jsx)("div",{style:{color:"#b00",marginBottom:8}},"Erro: ",se),U&&ie&&(0,e.jsx)("div",{style:{marginBottom:8}},"Carregando intervalo de interesse\u2026"),U&&!!le&&(0,e.jsx)("div",{style:{color:"#b00",marginBottom:8}},"Erro: ",le),ge&&(0,e.jsx)("div",{css:S},v.map((t=>(0,e.jsx)("label",{key:t,css:A},(0,e.jsx)("input",{type:"checkbox",checked:B.includes(t),onChange:()=>W((e=>e.includes(t)?e.filter((e=>e!==t)):[...e,t]))}),(0,e.jsx)("span",{className:"lbl"},t.charAt(0).toUpperCase()+t.slice(1))))))),fe.length>0&&(0,e.jsx)("div",{css:M},fe.map((t=>(0,e.jsx)(e.React.Fragment,{key:t.tipo},(0,e.jsx)("div",{css:P},U?"Intervalo de Interesse - ":"",t.tipo.charAt(0).toUpperCase()+t.tipo.slice(1)),t.rows.map(((o,r)=>(0,e.jsx)("div",{key:`${t.tipo}-${r}`,css:k},(0,e.jsx)("div",{css:j},(0,e.jsx)("svg",{width:o.size,height:o.size},(0,e.jsx)("circle",{cx:o.size/2,cy:o.size/2,r:o.size/2,fill:o.cor}))),(0,e.jsx)("span",{css:I},o.label)))))))),(fe.length>0||X)&&(0,e.jsx)("div",{css:L},fe.length>0&&(0,e.jsx)("label",{css:$,title:"Exibir tamb\xe9m classes sem po\xe7os"},(0,e.jsx)("input",{type:"checkbox",checked:q,onChange:e=>G(e.target.checked)}),"Exibir classes vazias"),X&&(0,e.jsx)("label",{css:z,title:"Quando marcado, aplica o filtro de Intervalo de Interesse (c\xf3digos vindos do Explora ou via API)"},(0,e.jsx)("input",{type:"checkbox",checked:U,onChange:e=>{de.current=!0,J(e.target.checked)}}),"Intervalo de interesse")),(0,e.jsx)(t.JimuMapViewComponent,{useMapWidgetId:null===(c=l.useMapWidgetIds)||void 0===c?void 0:c[0],onActiveViewChange:g}))}function B(e){l.p=e}})(),c})())}}}));

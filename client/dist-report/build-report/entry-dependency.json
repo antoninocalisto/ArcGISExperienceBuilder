@@ -1,0 +1,702 @@
+{
+  "nodes": [
+    {
+      "name": "widgets/filter-criterion-data/dist/runtime/widget",
+      "size": 3553
+    },
+    {
+      "name": "widgets/simple/dist/runtime/widget",
+      "size": 1507
+    },
+    {
+      "name": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+      "size": 3146
+    },
+    {
+      "name": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "size": 2846
+    },
+    {
+      "name": "widgets/filter-criterion-data-select/dist/setting/setting",
+      "size": 3629
+    },
+    {
+      "name": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+      "size": 3076
+    },
+    {
+      "name": "widgets/filter-criterion-data-v3/dist/setting/setting",
+      "size": 3622
+    },
+    {
+      "name": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "size": 8047
+    },
+    {
+      "name": "widgets/filter-criterion-otimization/dist/setting/setting",
+      "size": 3632
+    },
+    {
+      "name": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "size": 15139
+    },
+    {
+      "name": "widgets/filter-criterion-otimization-console/dist/setting/setting",
+      "size": 3640
+    },
+    {
+      "name": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "size": 15273
+    },
+    {
+      "name": "widgets/filter-criterion-otimization-console-origin/dist/setting/setting",
+      "size": 3640
+    },
+    {
+      "name": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "size": 11888
+    },
+    {
+      "name": "widgets/filter-criterion-otimization-paralel/dist/setting/setting",
+      "size": 3640
+    },
+    {
+      "name": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "size": 17745
+    },
+    {
+      "name": "widgets/map-distribuition-interval/dist/setting/setting",
+      "size": 3630
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "size": 21278
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao/dist/setting/setting",
+      "size": 3621
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "size": 29671
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao-intervalo/dist/setting/setting",
+      "size": 3634
+    },
+    {
+      "name": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "size": 20674
+    },
+    {
+      "name": "widgets/mapa-distribuicao-amostras/dist/setting/setting",
+      "size": 3621
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "size": 33396
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao-v2/dist/setting/setting",
+      "size": 3621
+    },
+    {
+      "name": "widgets/teste/dist/runtime/widget",
+      "size": 34158
+    },
+    {
+      "name": "widgets/teste/dist/setting/setting",
+      "size": 3609
+    },
+    {
+      "name": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "size": 11637
+    },
+    {
+      "name": "widgets/consult-filter-criterion-otimization/dist/setting/setting",
+      "size": 3640
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "size": 38205
+    },
+    {
+      "name": "widgets/mapa-de-distribuicao-v3/dist/setting/setting",
+      "size": 3627
+    },
+    {
+      "name": "widgets/dados-da-selecao-criterios/dist/runtime/widget",
+      "size": 8526
+    },
+    {
+      "name": "widgets/dados-da-selecao-criterios/dist/setting/setting",
+      "size": 3632
+    },
+    {
+      "name": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "size": 55667
+    },
+    {
+      "name": "widgets/mapa-de-minerais/dist/setting/setting",
+      "size": 3627
+    }
+  ],
+  "links": [
+    {
+      "source": "widgets/filter-criterion-data/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-data/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-data/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-data/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/simple/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-data-v3/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-data-select/dist/runtime/widget",
+      "target": "esri/layers/GroupLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/layers/GroupLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "esri/Basemap"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "esri/layers/GroupLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "esri/Basemap"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "esri/layers/GroupLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-console-origin/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "esri/Basemap"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "esri/layers/GroupLayer"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/filter-criterion-otimization-paralel/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/map-distribuition-interval/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "target": "esri/layers/support/Field"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-intervalo/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-distribuicao-amostras/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v2/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/teste/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/teste/dist/runtime/widget",
+      "target": "esri/layers/support/Field"
+    },
+    {
+      "source": "widgets/teste/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/teste/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/teste/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/teste/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/teste/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/teste/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/geometry/Extent"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "target": "esri/layers/GroupLayer"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/consult-filter-criterion-otimization/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-distribuicao-v3/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/dados-da-selecao-criterios/dist/runtime/widget",
+      "target": "esri/config"
+    },
+    {
+      "source": "widgets/dados-da-selecao-criterios/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/dados-da-selecao-criterios/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/dados-da-selecao-criterios/dist/runtime/widget",
+      "target": "jimu-core/react"
+    },
+    {
+      "source": "widgets/dados-da-selecao-criterios/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/dados-da-selecao-criterios/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-minerais/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    }
+  ]
+}

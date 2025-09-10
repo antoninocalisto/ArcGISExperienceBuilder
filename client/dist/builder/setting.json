@@ -1,0 +1,9 @@
+{
+  "devEnv": {
+    "prod": {
+      "portalUrl": "https://portalgis.petrobras.com.br/arcgis",
+      "clientId": "cJ3GRWG3DdgimhKE",
+      "isWebTier": false
+    }
+  }
+}

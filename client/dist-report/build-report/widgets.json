@@ -1,0 +1,466 @@
+{
+  "entrypoints": {
+    "widgets/consult-filter-criterion-otimization/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/consult-filter-criterion-otimization/dist/runtime/widget",
+          "names": [
+            "widgets/consult-filter-criterion-otimization/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/consult-filter-criterion-otimization/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/consult-filter-criterion-otimization/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/consult-filter-criterion-otimization/dist/setting/setting",
+          "names": [
+            "widgets/consult-filter-criterion-otimization/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/consult-filter-criterion-otimization/src/setting/setting.tsx",
+            "./your-extensions/widgets/consult-filter-criterion-otimization/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/dados-da-selecao-criterios/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/dados-da-selecao-criterios/dist/runtime/widget",
+          "names": [
+            "widgets/dados-da-selecao-criterios/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/dados-da-selecao-criterios/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/dados-da-selecao-criterios/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/dados-da-selecao-criterios/dist/setting/setting",
+          "names": [
+            "widgets/dados-da-selecao-criterios/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/dados-da-selecao-criterios/src/setting/setting.tsx",
+            "./your-extensions/widgets/dados-da-selecao-criterios/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-data/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-data/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-data/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-data/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-data-select/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-data-select/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-data-select/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-data-select/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-data-select/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-data-select/dist/setting/setting",
+          "names": [
+            "widgets/filter-criterion-data-select/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-data-select/src/setting/setting.tsx",
+            "./your-extensions/widgets/filter-criterion-data-select/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-data-v2/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-data-v2/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-data-v2/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-data-v2/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-data-v3/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-data-v3/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-data-v3/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-data-v3/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-data-v3/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-data-v3/dist/setting/setting",
+          "names": [
+            "widgets/filter-criterion-data-v3/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-data-v3/src/setting/setting.tsx",
+            "./your-extensions/widgets/filter-criterion-data-v3/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-otimization/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-otimization/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-otimization/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-otimization/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-otimization/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-otimization/dist/setting/setting",
+          "names": [
+            "widgets/filter-criterion-otimization/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-otimization/src/setting/setting.tsx",
+            "./your-extensions/widgets/filter-criterion-otimization/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-otimization-console-origin/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-otimization-console-origin/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-otimization-console-origin/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-otimization-console-origin/dist/setting/setting",
+          "names": [
+            "widgets/filter-criterion-otimization-console-origin/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-otimization-console-origin/src/setting/setting.tsx",
+            "./your-extensions/widgets/filter-criterion-otimization-console-origin/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-otimization-paralel/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-otimization-paralel/dist/runtime/widget",
+          "names": [
+            "widgets/filter-criterion-otimization-paralel/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-otimization-paralel/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/filter-criterion-otimization-paralel/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/filter-criterion-otimization-paralel/dist/setting/setting",
+          "names": [
+            "widgets/filter-criterion-otimization-paralel/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/filter-criterion-otimization-paralel/src/setting/setting.tsx",
+            "./your-extensions/widgets/filter-criterion-otimization-paralel/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/map-distribuition-interval/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/map-distribuition-interval/dist/runtime/widget",
+          "names": [
+            "widgets/map-distribuition-interval/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/map-distribuition-interval/src/runtime/utils.ts",
+            "./your-extensions/widgets/map-distribuition-interval/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/map-distribuition-interval/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/map-distribuition-interval/dist/setting/setting",
+          "names": [
+            "widgets/map-distribuition-interval/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/map-distribuition-interval/src/setting/setting.tsx",
+            "./your-extensions/widgets/map-distribuition-interval/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao/dist/runtime/widget",
+          "names": [
+            "widgets/mapa-de-distribuicao/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao/src/runtime/utils.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao/dist/setting/setting",
+          "names": [
+            "widgets/mapa-de-distribuicao/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao/src/setting/setting.tsx",
+            "./your-extensions/widgets/mapa-de-distribuicao/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget",
+          "names": [
+            "widgets/mapa-de-distribuicao-intervalo/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-intervalo/src/runtime/utils.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-intervalo/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao-intervalo/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao-intervalo/dist/setting/setting",
+          "names": [
+            "widgets/mapa-de-distribuicao-intervalo/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-intervalo/src/setting/setting.tsx",
+            "./your-extensions/widgets/mapa-de-distribuicao-intervalo/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao-v2/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao-v2/dist/runtime/widget",
+          "names": [
+            "widgets/mapa-de-distribuicao-v2/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-v2/src/runtime/utils.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-v2/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao-v2/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao-v2/dist/setting/setting",
+          "names": [
+            "widgets/mapa-de-distribuicao-v2/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-v2/src/setting/setting.tsx",
+            "./your-extensions/widgets/mapa-de-distribuicao-v2/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao-v3/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao-v3/dist/runtime/widget",
+          "names": [
+            "widgets/mapa-de-distribuicao-v3/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-v3/src/runtime/utils.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-v3/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-distribuicao-v3/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-distribuicao-v3/dist/setting/setting",
+          "names": [
+            "widgets/mapa-de-distribuicao-v3/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-distribuicao-v3/src/setting/setting.tsx",
+            "./your-extensions/widgets/mapa-de-distribuicao-v3/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-minerais/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-minerais/dist/runtime/widget",
+          "names": [
+            "widgets/mapa-de-minerais/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-minerais/src/runtime/Minerals.ts",
+            "./your-extensions/widgets/mapa-de-minerais/src/runtime/utils.ts",
+            "./your-extensions/widgets/mapa-de-minerais/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-minerais/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-minerais/dist/setting/setting",
+          "names": [
+            "widgets/mapa-de-minerais/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-minerais/src/setting/setting.tsx",
+            "./your-extensions/widgets/mapa-de-minerais/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
+    "widgets/simple/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/simple/dist/runtime/widget",
+          "names": [
+            "widgets/simple/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/simple/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/teste/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/teste/dist/runtime/widget",
+          "names": [
+            "widgets/teste/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/teste/src/runtime/utils.ts",
+            "./your-extensions/widgets/teste/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/teste/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/teste/dist/setting/setting",
+          "names": [
+            "widgets/teste/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/teste/src/setting/setting.tsx",
+            "./your-extensions/widgets/teste/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    }
+  },
+  "chunks": [],
+  "errors": [],
+  "warnings": [],
+  "outputPath": "C:\\Users\\F4J0\\ArcGISExperienceBuilder\\client\\dist-prod",
+  "publicPath": "",
+  "version": "5.90.3"
+}

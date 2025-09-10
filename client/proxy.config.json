@@ -1,0 +1,3 @@
+import esriConfig from '@arcgis/core/config';
+esriConfig.request.proxyUrl = '/proxy/'; // ajuste a rota do seu proxy
+esriConfig.request.corsEnabledServers.push('portalgis.petrobras.com.br');
