@@ -1,5 +1,5 @@
 export default {
-  _widgetLabel: 'Mapas de Distribuição - Search Map',
+  _widgetLabel: 'Mapas de Distribuição',
   lat: 'Latitude: ',
   lon: 'Longitude: ',
   zoom: 'Zoom',
