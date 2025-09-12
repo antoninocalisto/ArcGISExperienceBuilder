@@ -151,16 +151,12 @@ const MAX_BUBBLE = 40
 const globalPanelStyle = css`
   div[role='dialog'][aria-label='mapa-de-distribuicao'],
   div[role='dialog'][aria-label='mapa-de-distribuicao-v2'] {
-    position: absolute !important;
-    inset: ${PANEL_MARGIN_TOP}px ${PANEL_MARGIN_RIGHT}px auto auto !important;
-    transform: none !important;
+    /* nada de position/top/right/transform/height aqui */
     z-index: 9999 !important;
     width: ${DEFAULT_WIDTH}px !important;
-    height: ${DEFAULT_HEIGHT}px !important;
-    max-height: calc(100% - 24px) !important;
-    overflow: visible !important;
   }
-`
+`;
+
 
 const legendHeaderStyle = css`font-weight:600;margin:4px 0;font-size:.85rem;line-height:1.1;`
 const bubbleBoxStyle = css`width:${MAX_BUBBLE}px;height:${MAX_BUBBLE}px;display:flex;align-items:center;justify-content:center;margin-right:8px;`
@@ -297,55 +293,104 @@ function isDialogHidden(dlg: HTMLElement) {
   const cs = getComputedStyle(dlg)
   return dlg.getAttribute('aria-hidden') === 'true' || cs.display === 'none' || cs.visibility === 'hidden'
 }
-let _applyingStyle = false
+let _applyingStyle = false;
+
 function forcePanelStyle(dlg: HTMLElement) {
-  if (_applyingStyle) return
-  _applyingStyle = true
+  if (_applyingStyle) return;
+  _applyingStyle = true;
   try {
-    const s = dlg.style
-    if (s.getPropertyValue('position') !== 'absolute') s.setProperty('position', 'absolute', 'important')
-    s.removeProperty('left'); s.removeProperty('bottom'); s.removeProperty('transform')
-    s.setProperty('inset', 'auto auto auto auto')
-    s.setProperty('top', `${PANEL_MARGIN_TOP}px`, 'important')
-    s.setProperty('right', `${PANEL_MARGIN_RIGHT}px`, 'important')
-    if (s.getPropertyValue('width') !== `${DEFAULT_WIDTH}px`) s.setProperty('width', `${DEFAULT_WIDTH}px`, 'important')
-    if (s.getPropertyValue('height') !== `${DEFAULT_HEIGHT}px`) s.setProperty('height', `${DEFAULT_HEIGHT}px`, 'important')
-    if (s.getPropertyValue('max-height') !== 'calc(100% - 24px)') s.setProperty('max-height', 'calc(100% - 24px)', 'important')
-    if (s.getPropertyValue('overflow') !== 'visible') s.setProperty('overflow', 'visible', 'important')
-    if (s.getPropertyValue('z-index') !== '9999') s.setProperty('z-index', '9999', 'important')
-  } finally { _applyingStyle = false }
+    const s = dlg.style;
+    if (s.getPropertyValue('position') !== 'absolute') s.setProperty('position', 'absolute'); // sem !important
+    if (s.getPropertyValue('z-index') !== '9999')       s.setProperty('z-index', '9999');
+    if (s.getPropertyValue('width') !== `${DEFAULT_WIDTH}px`) {
+      s.setProperty('width', `${DEFAULT_WIDTH}px`, 'important');
+    }
+  } finally {
+    _applyingStyle = false;
+  }
 }
+
+function initFirstOpenLayout(dlg: HTMLElement) {
+  // evita repetir
+  if (dlg.getAttribute('data-first-open-initialized') === '1') return;
+  dlg.setAttribute('data-first-open-initialized', '1');
+
+  const s = dlg.style;
+
+  // 🔒 1ª abertura: força âncora canto superior direito e tamanho grande
+  s.setProperty('position', 'absolute');            // sem !important
+  s.setProperty('top', `${PANEL_MARGIN_TOP}px`, 'important');
+  s.setProperty('right', `${PANEL_MARGIN_RIGHT}px`, 'important');
+  s.setProperty('left', 'auto');
+  s.setProperty('bottom', 'auto');
+
+  // neutraliza o translate do Popper só na estreia (não observamos style, então sem loop)
+  s.setProperty('transform', 'none', 'important');
+
+  // largura permanece fixa
+  s.setProperty('width', `${DEFAULT_WIDTH}px`, 'important');
+
+  // altura “grande” apenas na estreia
+  s.setProperty('height', `${DEFAULT_HEIGHT}px`, 'important');
+  s.setProperty('max-height', 'calc(100% - 24px)', 'important');
+  s.setProperty('overflow', 'visible', 'important');
+
+  // ⇢ libere a altura após pequena janela (ou no 1º clique de recolher/expandir)
+  const release = () => {
+    // mantém posição/top/right/transform; solta só altura p/ expansão nativa funcionar
+    s.removeProperty('height');
+    s.removeProperty('max-height');
+    s.removeProperty('overflow');
+    // remove ouvinte (se houver)
+    btnCollapse?.removeEventListener('click', onToggleOnce as any);
+  };
+
+  // libera sozinho após ~800ms (tempo suficiente p/ “abrir grande”)
+  const to = setTimeout(release, 800);
+
+  // também libera na 1ª interação do usuário (recolher/expandir)
+  const btnCollapse = dlg.querySelector(
+    'button.action-collapse, button[title="Recolher"], button[aria-label="Recolher"], button[title="Expandir"], button[aria-label="Expandir"]'
+  ) as HTMLElement | null;
+
+  const onToggleOnce = () => { clearTimeout(to); release(); };
+  if (btnCollapse) btnCollapse.addEventListener('click', onToggleOnce, { once: true });
+}
+
+
 function useForceRightPosition(rootRef: React.RefObject<HTMLDivElement>) {
   React.useEffect(() => {
-    let cleanup: (() => void) | null = null
+    let cleanup: (() => void) | null = null;
+
     const apply = () => {
       const dlg =
-        (rootRef.current && (rootRef.current.closest('[role="dialog"]') as HTMLElement)) ||
+        (rootRef.current?.closest('[role="dialog"]') as HTMLElement) ||
         (document.querySelector('div[role="dialog"][aria-label="mapa-de-distribuicao-v2"]') as HTMLElement) ||
-        (document.querySelector('div[role="dialog"][aria-label="mapa-de-distribuicao"]') as HTMLElement)
-      if (!dlg) return
-      forcePanelStyle(dlg)
-      const mo = new MutationObserver((mutations) => {
-        if (_applyingStyle) return
-        if (mutations.some((m) => m.attributeName === 'style')) {
-          const s = dlg.style
-          const drift = s.getPropertyValue('position') !== 'absolute'
-            || s.getPropertyValue('top') !== `${PANEL_MARGIN_TOP}px`
-            || s.getPropertyValue('right') !== `${PANEL_MARGIN_RIGHT}px`
-            || (s.transform && s.transform !== 'none')
-          if (drift) forcePanelStyle(dlg)
-        }
-      })
-      mo.observe(dlg, { attributes: true, attributeFilter: ['style'] })
-      let to: any
-      const onResize = () => { clearTimeout(to); to = setTimeout(() => forcePanelStyle(dlg), 80) }
-      window.addEventListener('resize', onResize)
-      cleanup = () => { mo.disconnect(); window.removeEventListener('resize', onResize) }
-    }
-    requestAnimationFrame(apply); setTimeout(apply, 80); setTimeout(apply, 300)
-    return () => { cleanup?.() }
-  }, [rootRef])
+        (document.querySelector('div[role="dialog"][aria-label="mapa-de-distribuicao"]') as HTMLElement);
+
+      if (!dlg) return;
+
+      // aplica layout “seguro”
+      forcePanelStyle(dlg);
+
+      // e faz o “layout de estreia” (canto direito + grande)
+      initFirstOpenLayout(dlg);
+
+      // reaplique apenas em resize (sem observar style do Popper)
+      let to: any;
+      const onResize = () => { clearTimeout(to); to = setTimeout(() => forcePanelStyle(dlg), 80); };
+      window.addEventListener('resize', onResize);
+      cleanup = () => { window.removeEventListener('resize', onResize); };
+    };
+
+    requestAnimationFrame(apply);
+    setTimeout(apply, 80);
+    setTimeout(apply, 300);
+
+    return () => { cleanup?.(); };
+  }, [rootRef]);
 }
+
 
 const layerIdForSample = (tipo: string) => `amostras_${tipo.replace(/\s+/g, '_')}`
 function clearAmostras(view: __esri.View) {
@@ -839,21 +884,6 @@ React.useEffect(() => {
     return () => closeBtn.removeEventListener('click', handleClose)
   }, [jimuMapView, handleClose])
 
-  React.useEffect(() => {
-    const root = rootRef.current; if (!root) return
-    const dlg = findClosestDialog(root) as HTMLElement | null
-    if (!dlg) return
-    let wasVisible = !isDialogHidden(dlg)
-    const check = () => {
-      const nowHidden = isDialogHidden(dlg)
-      if (wasVisible && nowHidden) { handleClose(); wasVisible = false }
-      else if (!wasVisible && !nowHidden) { wasVisible = true }
-    }
-    const mo = new MutationObserver(check)
-    mo.observe(dlg, { attributes: true, attributeFilter: ['style', 'class', 'aria-hidden'] })
-    check()
-    return () => mo.disconnect()
-  }, [handleClose])
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') handleClose() }
