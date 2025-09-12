@@ -58,7 +58,7 @@ export default function GradientLegend({ title, min, max, isPercent }: Props) {
 
   return (
     <div>
-      {title && <div style={{ fontWeight: 600, marginBottom: 4 }}>{title}</div>}
+      {title && <div style={{ fontWeight: 600, marginBottom: 20 }}>{title}</div>}
       <div css={wrap}>
         <div css={rampBox} />
         <div css={ticksBox}>

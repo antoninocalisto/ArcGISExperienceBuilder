@@ -3253,7 +3253,21 @@
     "widget_79": {
       "uri": "widgets/mapa-de-minerais-search-map/",
       "version": "1.15.0",
-      "label": "Mapas de Distribuição - Search Map",
+      "icon": {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 16 16\"><g fill=\"#000\" clip-path=\"url(#a)\"><path d=\"M4 2H2v2h2zM5 5h2v2H5zM12 5h-2v2h2zM8 8h2v2H8zM7 9H5v2h2zM2 11h2v2H2zM9 12H7v2h2z\"></path><path fill-rule=\"evenodd\" d=\"M0 16V0h16v16zM1 1h14v14H1z\" clip-rule=\"evenodd\"></path></g><defs><clipPath id=\"a\"><path fill=\"#fff\" d=\"M0 0h16v16H0z\"></path></clipPath></defs></svg>",
+        "properties": {
+          "filename": "CalculateDensityOutlined",
+          "color": "var(--dark-800)",
+          "originalName": "outlined/gis/calculate-density.svg",
+          "path": [
+            "gis",
+            "CalculateDensityOutlined"
+          ],
+          "isUploaded": false,
+          "inlineSvg": true
+        }
+      },
+      "label": "Mapas de Distribuição",
       "config": {
         "exampleConfigProperty": "test"
       },
@@ -4152,7 +4166,7 @@
       "offsetY": 80
     }
   },
-  "timestamp": 1757447434096,
+  "timestamp": 1757682463193,
   "attributes": {
     "portalUrl": "https://portalgis.petrobras.com.br/arcgis"
   },
@@ -4240,5 +4254,5 @@
       "primary": "#06b363"
     }
   },
-  "publishTimestamp": 1757447436928
+  "publishTimestamp": 1757682465514
 }

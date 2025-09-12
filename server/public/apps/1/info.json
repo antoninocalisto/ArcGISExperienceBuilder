@@ -2,7 +2,7 @@
   "created": 1753092524728,
   "description": "Experience Builder criado para o Projeto Portal Explora. O objetivo desse EXB é centralizar todos os dados e funções necessárias para o usuário utilizar dentro do Portal Explora.<div><br /></div><div>A maioria das funções são padrões do EXB, mas existem widgets personalizados.</div><div>Nesse EXB possui um web map (Portal Explora - Mapa) vinculado e algumas camadas relacionadas à poços, blocos, batimetria, etc..</div>",
   "id": "1",
-  "modified": 1757447436928,
+  "modified": 1757682465537,
   "owner": "F4J0",
   "tags": [
     "Explora",
