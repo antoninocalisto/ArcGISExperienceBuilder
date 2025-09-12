@@ -9969,7 +9969,7 @@
     "name": "mapa-de-minerais-search-map",
     "manifest": {
       "name": "mapa-de-minerais-search-map",
-      "label": "Mapas de Distribuição - Search Map",
+      "label": "Mapas de Distribuição",
       "type": "widget",
       "version": "1.15.0",
       "exbVersion": "1.15.0",

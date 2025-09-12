@@ -412,6 +412,37 @@
         }
       ]
     },
+    "widgets/mapa-de-minerais-search-map/dist/runtime/widget": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+          "names": [
+            "widgets/mapa-de-minerais-search-map/dist/runtime/widget"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-minerais-search-map/src/runtime/Minerals.ts",
+            "./your-extensions/widgets/mapa-de-minerais-search-map/src/runtime/utils.ts",
+            "./your-extensions/widgets/mapa-de-minerais-search-map/src/runtime/widget.tsx"
+          ]
+        }
+      ]
+    },
+    "widgets/mapa-de-minerais-search-map/dist/setting/setting": {
+      "chunks": [
+        {
+          "id": "widgets/mapa-de-minerais-search-map/dist/setting/setting",
+          "names": [
+            "widgets/mapa-de-minerais-search-map/dist/setting/setting"
+          ],
+          "modules": [
+            "./jimu-core/lib/set-public-path.ts",
+            "./your-extensions/widgets/mapa-de-minerais-search-map/src/setting/setting.tsx",
+            "./your-extensions/widgets/mapa-de-minerais-search-map/src/setting/translations/default.ts"
+          ]
+        }
+      ]
+    },
     "widgets/simple/dist/runtime/widget": {
       "chunks": [
         {

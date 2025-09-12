@@ -15,6 +15,9 @@ import {
   type MineralListaItem
 } from './Minerals'
 
+import MineralsListPanel from './MineralsListPanel'
+import GradientLegend from './GradientLegend'
+
 /* ===== Tipos ===== */
 type MsgFaixaInteresse = { type: 'faixa-interesse'; codigosPocos: (number | string)[] }
 type MsgLegendMinerais = { type: 'legend:minerais'; payload: any }
@@ -229,6 +232,14 @@ const mineralsListStyle = css`
   /* "Todas as Análises" (Row3, ocupando 2 colunas) */
   label[data-key='todasAnalises'] { grid-column: 1 / span 2; grid-row: 3; }
 `
+const scrollAreaStyle = css`
+  max-height: 260px;   /* ↩️ dá rolagem entre o TOTAL e o final do bloco */
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-top: 8px;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+`
 
 const summaryListStyle = css`max-height:300px;overflow-y:auto;margin-top:8px;padding:8px 8px 36px;background:#fff;border:1px solid #ddd;border-radius:4px;position:relative;`
 const summaryItemStyle = css`display:flex;align-items:center;margin:2px;`
@@ -389,6 +400,14 @@ export default function Widget(props: any) {
       .map((v: any) => Number(v)).filter((v: any) => !isNaN(v)))
   )
 
+  //buscador de minerais
+  const [agrupadorDados, setAgrupadorDados] = React.useState<Array<{
+    codigoPoco: number
+    qtAnalise: number
+    valorMedio: number
+    valorMaximo: number
+  }> | null>(null)
+
   // Bases (amostras)
   const [dadosFull, setDadosFull] = React.useState<AmostraItem[] | null>(null)
   const [dadosFaixaAPI, setDadosFaixaAPI] = React.useState<AmostraItem[] | null>(null)
@@ -526,6 +545,11 @@ React.useEffect(() => {
 
     if (data.type === 'legend:minerais' || data.type === 'fetchDistribuicaoMinerais:ok') {
       const _msg = data as MsgLegendMinerais
+
+      //Ajustando intervalo de interesse para aparecer
+      setWithInterest(_msg['message']['visible'])
+      setshowWithInterest((_msg['message']['visible']))
+
       console.log('[widget][msg] legend:minerais payload:', _msg?.payload)
       console.groupEnd()
       return
@@ -766,6 +790,7 @@ React.useEffect(() => {
         )
         console.log('[widget] agrupador dados', dados?.length, dados?.slice?.(0,10))
         if (!cancelled) {
+          setAgrupadorDados(dados || [])
           await aplicarColorizacaoPorAgrupador(
             jimuMapView,
             mineralAnalise as MineralTipo,
@@ -777,7 +802,7 @@ React.useEffect(() => {
       } catch (e) {
         console.error('Falha ao aplicar colorização por agrupador', e)
       } finally {
-        console.groupEnd()
+        return () => { cancelled = true }
       }
     }
     run()
@@ -875,6 +900,39 @@ React.useEffect(() => {
     return { title, rows }
   }, [categoria, mineralAnalise, dadosMinerais, withInterest, faixaSet, showEmpty])
 
+  const summaryMineralsAgr = React.useMemo(() => {
+    if (categoria !== 'minerals') return null
+    if (!mineralAnalise || !mineralSelecionado || !agrupador) return null
+    if (!Array.isArray(agrupadorDados) || agrupadorDados.length === 0) return null
+
+    // escolhe o campo certo conforme agrupador
+    const field = agrupador === 'analise' ? 'qtAnalise' : (agrupador === 'media' ? 'valorMedio' : 'valorMaximo')
+
+    // aplica "Intervalo de Interesse" se necessário
+    const base = (withInterest && faixaSet.size > 0)
+      ? agrupadorDados.filter(d => faixaSet.has(Number(d.codigoPoco)))
+      : agrupadorDados
+
+    const titleBase =
+      (agrupador === 'analise' ? 'Quantidade de Análises' :
+      agrupador === 'media'   ? `Média de ${mineralSelecionado.nomeMineral}` :
+                                `Máxima de ${mineralSelecionado.nomeMineral}`)
+
+    const title = (withInterest ? 'Intervalo de Interesse - ' : '') + titleBase
+
+    if (!base.length) return { title, rows: [] as any[] }
+
+    // A paleta segue coerente com o “total” (bolhas) — cor laranja usada no contador
+    const color = 'rgb(253,142,55)'
+    const dados = base.map(d => ({ total: Number((d as any)[field] || 0) }))
+    let rows = calcularQuebras(dados, color).reverse()
+    if (!showEmpty) rows = rows.filter(r => r.count > 0 || r.label.startsWith('| 0 |'))
+
+    return { title, rows }
+  }, [categoria, mineralAnalise, mineralSelecionado, agrupador, agrupadorDados, withInterest, faixaSet, showEmpty])
+
+
+
   const hasAnyBase =
     (Array.isArray(dadosFull) && dadosFull.length > 0) ||
     (Array.isArray(dadosFaixaAPI) && dadosFaixaAPI.length > 0)
@@ -891,6 +949,36 @@ React.useEffect(() => {
   // primeiras 4 opções + a terceira linha (Última)
   const FIRST_FOUR = MINERAL_OPTIONS.slice(0, 4)
   const LAST_ONE = MINERAL_OPTIONS.slice(4)
+
+  const legendAgr = React.useMemo(() => {
+    if (categoria !== 'minerals') return null
+    if (!mineralAnalise || !mineralSelecionado || !agrupador) return null
+    if (!Array.isArray(agrupadorDados) || agrupadorDados.length === 0) return null
+
+    const field = agrupador === 'analise' ? 'qtAnalise' : (agrupador === 'media' ? 'valorMedio' : 'valorMaximo')
+    const base = (withInterest && faixaSet.size > 0)
+      ? agrupadorDados.filter(d => faixaSet.has(Number(d.codigoPoco)))
+      : agrupadorDados
+
+    if (!base.length) return { min: 0, max: 0, isPercent: agrupador !== 'analise', title: '' }
+
+    let vals = base.map((d: any) => Number(d[field] || 0))
+    if (agrupador !== 'analise') vals = vals.map(v => Math.max(0, Math.min(100, v))) // trava 0..100
+    const min = 0
+    const max = Math.max(...vals, 0)
+
+    const titleBase =
+      agrupador === 'analise' ? 'Análises' :
+      agrupador === 'media'   ? `Média de ${mineralSelecionado.nomeMineral}` :
+                                `Máxima de ${mineralSelecionado.nomeMineral}`
+
+    return {
+      min, max,
+      isPercent: agrupador !== 'analise',
+      title: (withInterest ? 'Intervalo de Interesse - ' : '') + titleBase
+    }
+  }, [categoria, mineralAnalise, mineralSelecionado, agrupador, agrupadorDados, withInterest, faixaSet])
+
 
   return (
     <div css={wrapperStyle} ref={rootRef}>
@@ -933,13 +1021,10 @@ React.useEffect(() => {
       {/* ======== UI: MINERAIS ======== */}
       {categoria === 'minerals' && (
         <>
+          {/* 1) rádios principais DRX/Qemscan/Todas (mantém como estava) */}
           <div css={mineralsListStyle}>
             {MINERAL_OPTIONS.map(opt => (
-              <label
-                key={opt.value}
-                css={checkboxLabelStyle}
-                data-key={opt.value}   // DRX-TOT | MASSA | DRX-ARG | AREA | todasAnalises
-              >
+              <label key={opt.value} css={checkboxLabelStyle} data-key={opt.value}>
                 <input
                   type="radio"
                   name="mineral-analise"
@@ -954,7 +1039,78 @@ React.useEffect(() => {
           {loadingMinerais && <div style={{ marginBottom: 8 }}>Carregando minerais…</div>}
           {!!errorMinerais && <div style={{ color: '#b00', marginBottom: 8 }}>Erro: {errorMinerais}</div>}
 
-          {/* (sua UI de busca/lista/agrupadores permanece aqui) */}
+          {/* 2) TOTAL (bolhas) — permanece primeiro */}
+          {summaryMinerals && (
+            <div css={summaryListStyle}>
+              <div css={legendHeaderStyle}>{summaryMinerals.title}</div>
+              {summaryMinerals.rows.map((r, idx) => (
+                <div key={`min-total-${idx}`} css={summaryItemStyle}>
+                  <div css={bubbleBoxStyle}>
+                    <svg width={r.size} height={r.size}>
+                      <circle cx={r.size/2} cy={r.size/2} r={r.size/2} fill={r.cor} />
+                    </svg>
+                  </div>
+                  <span css={rangeLabelStyle}>{r.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 3) TUDO abaixo do Total entra no SCROLL (lista + rádios + rampa + checkboxes) */}
+          <div css={scrollAreaStyle}>
+            {mineralAnalise && (
+              <MineralsListPanel
+                mineralAnalise={mineralAnalise}
+                listaMinerais={listaMinerais}
+                loadingMinerais={loadingMinerais}
+                errorMinerais={errorMinerais}
+                buscaMineral={buscaMineral}
+                setBuscaMineral={setBuscaMineral}
+                mineralSelecionado={mineralSelecionado}
+                setMineralSelecionado={setMineralSelecionado}
+                agrupador={agrupador}
+                setAgrupador={setAgrupador}
+              />
+            )}
+
+            {legendAgr && (
+              <div style={{ marginTop: 8 }}>
+                <GradientLegend
+                  title={legendAgr.title}
+                  min={legendAgr.min}
+                  max={legendAgr.max}
+                  isPercent={legendAgr.isPercent}
+                />
+              </div>
+            )}
+
+            {(summaryMinerals || legendAgr || showWithInterest) && (
+              <div style={{ marginTop: 8, borderTop: '1px solid #eee', paddingTop: 6 }}>
+                {(summaryMinerals || legendAgr) && (
+                  <label css={footerLabelStyle} title="Exibir também classes sem poços">
+                    <input
+                      type="checkbox"
+                      checked={showEmpty}
+                      onChange={e => setShowEmpty(e.target.checked)}
+                    />
+                    Exibir classes vazias
+                  </label>
+                )}
+
+                {showWithInterest && (
+                  <label css={footerLabelStyleInteresse}
+                        title="Quando marcado, aplica o filtro de Intervalo de Interesse">
+                    <input
+                      type="checkbox"
+                      checked={withInterest}
+                      onChange={e => { interestManualRef.current = true; setWithInterest(e.target.checked) }}
+                    />
+                    Intervalo de Interesse
+                  </label>
+                )}
+              </div>
+            )}
+          </div>
         </>
       )}
 
@@ -979,47 +1135,6 @@ React.useEffect(() => {
               ))}
             </React.Fragment>
           ))}
-        </div>
-      )}
-
-      {/* ======== Sumário MINERAIS (Total de Amostras/Coletas) ======== */}
-      {categoria === 'minerals' && summaryMinerals && (
-        <div css={summaryListStyle}>
-          <div css={legendHeaderStyle}>{summaryMinerals.title}</div>
-          {summaryMinerals.rows.map((r, idx) => (
-            <div key={`min-${idx}`} css={summaryItemStyle}>
-              <div css={bubbleBoxStyle}>
-                <svg width={r.size} height={r.size}>
-                  <circle cx={r.size/2} cy={r.size/2} r={r.size/2} fill={r.cor} />
-                </svg>
-              </div>
-              <span css={rangeLabelStyle}>{r.label}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* ======== Rodapé comum ======== */}
-      {(summaryGroups.length > 0 || summaryMinerals || showWithInterest) && (
-        <div css={footerStyle}>
-          {((categoria === 'sample' && summaryGroups.length > 0) ||
-            (categoria === 'minerals' && !!summaryMinerals)) && (
-            <label css={footerLabelStyle} title="Exibir também classes sem poços">
-              <input type="checkbox" checked={showEmpty} onChange={e => setShowEmpty(e.target.checked)} />
-              Exibir classes vazias
-            </label>
-          )}
-
-          {showWithInterest && (
-            <label css={footerLabelStyleInteresse} title="Quando marcado, aplica o filtro de Intervalo de Interesse (códigos vindos do Explora ou via API)">
-              <input
-                type="checkbox"
-                checked={withInterest}
-                onChange={e => { interestManualRef.current = true; setWithInterest(e.target.checked) }}
-              />
-              Intervalo de interesse
-            </label>
-          )}
         </div>
       )}
 

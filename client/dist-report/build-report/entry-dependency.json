@@ -139,6 +139,14 @@
     {
       "name": "widgets/mapa-de-minerais/dist/setting/setting",
       "size": 3627
+    },
+    {
+      "name": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "size": 77810
+    },
+    {
+      "name": "widgets/mapa-de-minerais-search-map/dist/setting/setting",
+      "size": 3627
     }
   ],
   "links": [
@@ -696,6 +704,38 @@
     },
     {
       "source": "widgets/mapa-de-minerais/dist/setting/setting",
+      "target": "jimu-ui/advanced/setting-components"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "target": "esri/layers/FeatureLayer"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "target": "esri/renderers/ClassBreaksRenderer"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "target": "esri/symbols/SimpleMarkerSymbol"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "target": "esri/widgets/Legend"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "target": "jimu-arcgis/index"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/runtime/widget",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/setting/setting",
+      "target": "jimu-core/index"
+    },
+    {
+      "source": "widgets/mapa-de-minerais-search-map/dist/setting/setting",
       "target": "jimu-ui/advanced/setting-components"
     }
   ]
