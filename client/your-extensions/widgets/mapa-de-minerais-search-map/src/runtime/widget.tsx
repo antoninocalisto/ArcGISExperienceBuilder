@@ -40,7 +40,7 @@ const DEFAULT_FAIXA_INTERESSE = false
 const DEFAULT_WIDTH = 360
 const PANEL_MARGIN_TOP = 50
 const PANEL_MARGIN_RIGHT = 10
-const DEFAULT_HEIGHT = 650
+const DEFAULT_HEIGHT = 750
 
 /* ===== Campos por tipo (amostras) ===== */
 const TYPE_FIELD: Record<string, keyof AmostraItem> = {
@@ -160,7 +160,20 @@ const globalPanelStyle = css`
 
 const legendHeaderStyle = css`font-weight:600;margin:4px 0;font-size:.85rem;line-height:1.1;`
 const bubbleBoxStyle = css`width:${MAX_BUBBLE}px;height:${MAX_BUBBLE}px;display:flex;align-items:center;justify-content:center;margin-right:8px;`
-const wrapperStyle = css`position:relative;width:100%;height:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.1);padding:16px;overflow:hidden;`
+const wrapperStyle = css`
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex;               /* 👈 vira flex column */
+  flex-direction:column;
+  min-height:0;               /* 👈 permite filhos com overflow rolarem */
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:6px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  padding:16px;
+  overflow:hidden;
+`
 const titleStyle = css`font-weight:600;margin-bottom:4px;display:block;`
 const selectStyle = css`width:100%;padding:6px 8px;margin-bottom:12px;border:1px solid #ccc;border-radius:4px;`
 
@@ -229,21 +242,92 @@ const mineralsListStyle = css`
   label[data-key='todasAnalises'] { grid-column: 1 / span 2; grid-row: 3; }
 `
 const scrollAreaStyle = css`
-  max-height: 260px;   /* ↩️ dá rolagem entre o TOTAL e o final do bloco */
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding-right: 4px;
   margin-top: 8px;
   border-top: 1px solid #eee;
   padding-top: 8px;
+
+  /* remova a folga grande do fim */
+  padding-bottom: 8px;
+  scroll-padding-bottom: 8px;
 `
 
-const summaryListStyle = css`max-height:300px;overflow-y:auto;margin-top:8px;padding:8px 8px 36px;background:#fff;border:1px solid #ddd;border-radius:4px;position:relative;`
+
+// troque footerStyle por:
+const footerDockStyle = css`
+  flex: 0 0 auto;
+  margin-top: 8px;
+
+  /* 💡 esta linha faz o bloco “subir” um pouco do fim */
+  margin-bottom: 12px;
+
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  box-shadow: 0 -4px 10px rgba(0,0,0,.04);
+`
+
+
+const afterRadiosColStyle = css`
+  display:flex;
+  flex-direction:column;
+  flex:1;        /* 👈 ocupa o resto da altura do wrapper */
+  min-height:0;  /* 👈 necessário p/ a scrollArea rolar */
+`
+
+
+const summaryListStyle = css`
+  max-height: none;   /* estava 300px; deixe rolar o container pai */
+  overflow: visible;  /* quem rola agora é o scrollArea */
+  margin-top: 8px;
+  padding: 8px 8px 36px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: relative;
+`
 const summaryItemStyle = css`display:flex;align-items:center;margin:2px;`
 const rangeLabelStyle = css`font-size:.78rem;line-height:1.1;`
 
-const footerStyle = css`position: sticky; bottom: 0; background: #fff; border-top: 1px solid #eee; padding: 4px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px;`
-const footerLabelStyle = css`display:flex;align-items:center;gap:6px;padding-left:.5em;cursor:pointer;font-size:.9rem;`
+const footerStyle = css`
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 6px 0; /* um pouco mais de respiro */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+
+  /* opcional: sombra suave para separar do conteúdo */
+  box-shadow: 0 -4px 10px rgba(0,0,0,.04);
+`
+const footerLabelStyle = css`display:flex;align-items:center;gap:6px;padding-left:.5em;cursor:pointer;font-size:.9rem; `
 const footerLabelStyleInteresse = footerLabelStyle
+
+// 1) crie um estilo “compacto” para o bloco de charts
+const chartsCompact = css`
+  /* afeta textos dentro de SVGs (rótulos, eixos etc.) */
+  svg text { font-size: 11px; }
+
+  /* Recharts (se estiver usando): legendas e tooltips */
+  .recharts-legend-wrapper,
+  .recharts-default-legend,
+  .recharts-tooltip-wrapper { font-size: 11px !important; }
+
+  /* ECharts (se estiver usando): tooltips/legendas em div */
+  .echarts-tooltip,
+  .echarts-legend { font-size: 11px !important; }
+`
+
 
 /* ===== Sumário (amostras/ minerais) ===== */
 function calcularQuebras(dados: { total: number }[], colorFill: string) {
@@ -1069,78 +1153,81 @@ React.useEffect(() => {
           {loadingMinerais && <div style={{ marginBottom: 8 }}>Carregando minerais…</div>}
           {!!errorMinerais && <div style={{ color: '#b00', marginBottom: 8 }}>Erro: {errorMinerais}</div>}
 
-          {/* 2) TOTAL (bolhas) — permanece primeiro */}
-          {summaryMinerals && (
-            <div css={summaryListStyle}>
-              <div css={legendHeaderStyle}>{summaryMinerals.title}</div>
-              {summaryMinerals.rows.map((r, idx) => (
-                <div key={`min-total-${idx}`} css={summaryItemStyle}>
-                  <div css={bubbleBoxStyle}>
-                    <svg width={r.size} height={r.size}>
-                      <circle cx={r.size/2} cy={r.size/2} r={r.size/2} fill={r.cor} />
-                    </svg>
-                  </div>
-                  <span css={rangeLabelStyle}>{r.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* 3) TUDO abaixo do Total entra no SCROLL (lista + rádios + rampa + checkboxes) */}
-          <div css={scrollAreaStyle}>
-            {mineralAnalise && (
-              <MineralsListPanel
-                mineralAnalise={mineralAnalise}
-                listaMinerais={listaMinerais}
-                loadingMinerais={loadingMinerais}
-                errorMinerais={errorMinerais}
-                buscaMineral={buscaMineral}
-                setBuscaMineral={setBuscaMineral}
-                mineralSelecionado={mineralSelecionado}
-                setMineralSelecionado={setMineralSelecionado}
-                agrupador={agrupador}
-                setAgrupador={setAgrupador}
-              />
-            )}
+          <div css={[afterRadiosColStyle, chartsCompact]}>
+            <div css={scrollAreaStyle}>
+              {summaryMinerals && (
+                <div css={summaryListStyle}>
+                  <div css={legendHeaderStyle}>{summaryMinerals.title}</div>
+                  {summaryMinerals.rows.map((r, idx) => (
+                    <div key={`min-total-${idx}`} css={summaryItemStyle}>
+                      <div css={bubbleBoxStyle}>
+                        <svg width={r.size} height={r.size}>
+                          <circle cx={r.size/2} cy={r.size/2} r={r.size/2} fill={r.cor} />
+                        </svg>
+                      </div>
+                      <span css={rangeLabelStyle}>{r.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            {legendAgr && (
-              <div style={{ marginTop: 8 }}>
-                <GradientLegend
-                  title={legendAgr.title}
-                  min={legendAgr.min}
-                  max={legendAgr.max}
-                  isPercent={legendAgr.isPercent}
+              {mineralAnalise && (
+                <MineralsListPanel
+                  mineralAnalise={mineralAnalise}
+                  listaMinerais={listaMinerais}
+                  loadingMinerais={loadingMinerais}
+                  errorMinerais={errorMinerais}
+                  buscaMineral={buscaMineral}
+                  setBuscaMineral={setBuscaMineral}
+                  mineralSelecionado={mineralSelecionado}
+                  setMineralSelecionado={setMineralSelecionado}
+                  agrupador={agrupador}
+                  setAgrupador={setAgrupador}
                 />
-              </div>
-            )}
+              )}
 
-            {(summaryMinerals || legendAgr || showWithInterest) && (
-              <div style={{ marginTop: 8, borderTop: '1px solid #eee', paddingTop: 6 }}>
-                {(summaryMinerals || legendAgr) && (
-                  <label css={footerLabelStyle} title="Exibir também classes sem poços">
-                    <input
-                      type="checkbox"
-                      checked={showEmpty}
-                      onChange={e => setShowEmpty(e.target.checked)}
-                    />
-                    Exibir classes vazias
-                  </label>
-                )}
+              {legendAgr && (
+                <div style={{ marginTop: 8 }}>
+                  <GradientLegend
+                    title={legendAgr.title}
+                    min={legendAgr.min}
+                    max={legendAgr.max}
+                    isPercent={legendAgr.isPercent}
+                  />
+                </div>
+              )}
 
-                {showWithInterest && (
-                  <label css={footerLabelStyleInteresse}
-                        title="Quando marcado, aplica o filtro de Intervalo de Interesse">
-                    <input
-                      type="checkbox"
-                      checked={withInterest}
-                      onChange={e => { interestManualRef.current = true; setWithInterest(e.target.checked) }}
-                    />
-                    Intervalo de Interesse
-                  </label>
-                )}
-              </div>
-            )}
+            </div><div css={footerDockStyle}>
+              {(summaryMinerals || legendAgr || showWithInterest) && (
+                <div css={footerStyle}>
+                  {(summaryMinerals || legendAgr) && (
+                    <label css={footerLabelStyle} title="Exibir também classes sem poços">
+                      <input
+                        type="checkbox"
+                        checked={showEmpty}
+                        onChange={e => setShowEmpty(e.target.checked)}
+                      />
+                      Exibir classes vazias
+                    </label>
+                  )}
+
+                  {showWithInterest && (
+                    <label css={footerLabelStyleInteresse}
+                          title="Quando marcado, aplica o filtro de Intervalo de Interesse">
+                      <input
+                        type="checkbox"
+                        checked={withInterest}
+                        onChange={e => { interestManualRef.current = true; setWithInterest(e.target.checked) }}
+                      />
+                      Intervalo de Interesse
+                    </label>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
+
         </>
       )}
 
